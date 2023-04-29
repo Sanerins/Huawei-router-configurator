@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="mainBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.huawei.huaweicli.controller.DataController">
+   <children>
+      <TableView fx:id="dataTable" prefWidth="594.0">
+        <columns>
+          <TableColumn fx:id="nameCol" prefWidth="75.0" text="Значения" />
+          <TableColumn fx:id="immediateCol" prefWidth="75.0" text="Сейчас" />
+            <TableColumn fx:id="perMinuteCol" prefWidth="75.0" text="За минуту" />
+            <TableColumn fx:id="perFiveMinCol" prefWidth="75.0" text="За 5 мин" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</VBox>
