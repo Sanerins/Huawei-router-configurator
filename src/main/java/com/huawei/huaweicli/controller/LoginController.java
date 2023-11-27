@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
     @FXML
+    public TextField hostField;
+    @FXML
     private TextField loginField;
     @FXML
     private TextField pswdField;
@@ -39,7 +41,7 @@ public class LoginController implements Initializable {
                 .toString();
         String session = RequestHandler.getSession(loginField.getText(), protectedPswd);
         if (session != null) {
-            StaticContext.initCreds(loginField.getText(), protectedPswd);
+            StaticContext.initCreds(hostField.getText(), protectedPswd, loginField.getText());
             StaticContext.changeSession(session.substring(0, session.length() - 1));
             infoText.setFill(Color.GREEN);
             infoText.setText("Success!");

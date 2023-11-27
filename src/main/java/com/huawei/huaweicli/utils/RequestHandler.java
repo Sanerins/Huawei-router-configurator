@@ -36,7 +36,7 @@ public class RequestHandler {
                 "<Password>" + pass + "</Password>" +
                 "</request>";
         HttpEntity<String> request = new HttpEntity<>(body);
-        ResponseEntity<String> response = template.exchange("http://192.168.1.1/api/user/login", HttpMethod.POST,
+        ResponseEntity<String> response = template.exchange(StaticContext.getHost() + "api/user/login", HttpMethod.POST,
                 request, String.class);
         if (response.getBody() == null || response.getBody().contains("error")) {
             return null;
@@ -53,7 +53,7 @@ public class RequestHandler {
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.add("Cookie", "SessionID_R3=" + StaticContext.getSession() + "; " + "cookie=maintenance%2C%2Cdiagnosis");
                 HttpEntity<String> request = new HttpEntity<>(headers);
-                response = template.exchange("http://192.168.1.1/api/device/diagnosis", HttpMethod.GET, request, String.class);
+                response = template.exchange(StaticContext.getHost() + "api/device/diagnosis", HttpMethod.GET, request, String.class);
             } catch (Exception e) {
                 String session = getSession(StaticContext.getLogin(), StaticContext.getPassword());
                 if (session == null) {
