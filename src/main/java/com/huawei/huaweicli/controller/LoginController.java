@@ -39,23 +39,27 @@ public class LoginController implements Initializable {
         String protectedPswd = Hashing.sha256()
                 .hashString(pswdField.getText(), StandardCharsets.UTF_8)
                 .toString();
-        String session = RequestHandler.getSession(loginField.getText(), protectedPswd);
-        if (session != null) {
-            StaticContext.initCreds(hostField.getText(), protectedPswd, loginField.getText());
-            StaticContext.changeSession(session.substring(0, session.length() - 1));
-            infoText.setFill(Color.GREEN);
-            infoText.setText("Success!");
-            try {
-                Scene dataScene = new Scene(FXMLLoader.load(Objects.requireNonNull(HuaweiCLI.class.getResource("data_view.fxml"))));
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(dataScene);
-                window.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+        String session = RequestHandler.getSession(loginField.getText(), protectedPswd, hostField.getText());
+        if (session == null) {
+            infoText.setFill(Color.RED);
+            infoText.setText("Authorization failure!");
+            return;
         }
-        infoText.setFill(Color.RED);
-        infoText.setText("Failure!");
+
+        StaticContext.initCreds(hostField.getText(), protectedPswd, loginField.getText());
+        StaticContext.changeSession(session.substring(0, session.length() - 1));
+        infoText.setFill(Color.GREEN);
+        infoText.setText("Success!");
+
+        try {
+            Scene dataScene = new Scene(FXMLLoader.load(Objects.requireNonNull(HuaweiCLI.class.getResource("data_view.fxml"))));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(dataScene);
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

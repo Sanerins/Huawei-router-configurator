@@ -5,9 +5,8 @@ public class StaticContext {
     private static String login;
     private static String password;
     private static String host;
-    private static boolean isInited = false;
-
     private static String session;
+    private static boolean isInited = false;
 
     public static void initCreds(String host, String password, String login) {
         if (isInited) {

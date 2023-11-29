@@ -65,7 +65,7 @@ public class DataController implements Initializable {
         JFreeChart chart = ChartGenerator.createChart(dataset);
         ChartCanvas viewer = new ChartCanvas(chart);
         mainBox.getChildren().add(viewer);
-        viewer.widthProperty().bind( mainBox.widthProperty());
-        viewer.heightProperty().bind( mainBox.heightProperty().divide(1.5));
+        viewer.widthProperty().bind(mainBox.widthProperty());
+        viewer.heightProperty().bind(mainBox.heightProperty().divide(1.5));
     }
 }

@@ -29,15 +29,20 @@ public class RequestHandler {
 
     private static final RestTemplate template = new RestTemplate();
 
-    public static String getSession(String login, String pass) {
+    public static String getSession(String login, String pass, String host) {
         String body = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                 "<request>" +
                 "<Username>" + login + "</Username>" +
                 "<Password>" + pass + "</Password>" +
                 "</request>";
         HttpEntity<String> request = new HttpEntity<>(body);
-        ResponseEntity<String> response = template.exchange(StaticContext.getHost() + "api/user/login", HttpMethod.POST,
-                request, String.class);
+        ResponseEntity<String> response;
+        try {
+            response = template.exchange(host == null ? StaticContext.getHost() : host + "api/user/login",
+                    HttpMethod.POST, request, String.class);
+        } catch (Exception e) {
+            return null;
+        }
         if (response.getBody() == null || response.getBody().contains("error")) {
             return null;
         }
@@ -55,9 +60,9 @@ public class RequestHandler {
                 HttpEntity<String> request = new HttpEntity<>(headers);
                 response = template.exchange(StaticContext.getHost() + "api/device/diagnosis", HttpMethod.GET, request, String.class);
             } catch (Exception e) {
-                String session = getSession(StaticContext.getLogin(), StaticContext.getPassword());
+                String session = getSession(StaticContext.getLogin(), StaticContext.getPassword(), null);
                 if (session == null) {
-                    throw new RuntimeException();
+                    throw new RuntimeException("Session expired yet failed to reacquire new one or no connection to host at all");
                 }
                 StaticContext.changeSession(session);
             }
