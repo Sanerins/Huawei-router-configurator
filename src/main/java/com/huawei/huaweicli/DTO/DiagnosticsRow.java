@@ -25,7 +25,8 @@ public class DiagnosticsRow {
 
     private final DoubleProperty perFiveMinutesValue;
 
-    public DiagnosticsRow(DiagnosticsHandler.Diagnostics diagnostics, XYSeries series, IntegerProperty immediate, DoubleProperty perMinuteValue, DoubleProperty perFiveMinutesValue) {
+    public DiagnosticsRow(DiagnosticsHandler.Diagnostics diagnostics, XYSeries series, IntegerProperty immediate,
+                          DoubleProperty perMinuteValue, DoubleProperty perFiveMinutesValue) {
         this.diagnostics = diagnostics;
         this.series = series;
         this.rowName = new SimpleStringProperty(diagnostics.name());
